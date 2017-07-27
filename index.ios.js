@@ -27,19 +27,7 @@ const store = configureStore({});
 import {
   AppRegistry,
 } from 'react-native';
-/*
-export default class Peckish extends Component {
-  render() {
-    return (
-      <View>
-        <Text>
-          I am Peckish
-        </Text>
-      </View>
-    );
-  }
-}
-*/
+
 const App = () => (
   <Provider store={store}>
   <AppContainer />
