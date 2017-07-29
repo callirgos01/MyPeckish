@@ -21,6 +21,7 @@ function configureStore(initialState) {
   );
   return createStore(reducer, initialState, enhancer);
 }
+
 //isomorphic web app will need an initial state
 const store = configureStore({});
 
