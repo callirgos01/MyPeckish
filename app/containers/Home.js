@@ -12,8 +12,18 @@ const{
 import { connect } from 'react-redux'
 
 class Home extends Component {
+    constructor(props)
+    {
+        super(props);
+        this.state = { searching:false, ingredientsInput: '' };
+    }
+
     searchPressed() {
-        this.props.fetchRecipes('bacon,cucumber,banana');
+        this.setState({searching: true});
+        this.props.fetchRecipes(this.state.ingredientsInput).then(() => {
+            this.setState({searching:false});
+        });
+        
     }
 
 //may be an enhancer?
@@ -24,17 +34,24 @@ class Home extends Component {
     render() {
         return <View style = {styles.scene}>
             <View style={styles.searchSection}>
+                <TextInput style={styles.searchInput}
+                    returnKeyType='search'
+                    placeholder='Ingredients (comma delimeted)'
+                    onChangeText={ (ingredientsInput) => { this.setState({ingredientsInput})}}
+                    value={this.state.ingredientsInput}
+                />
                 <TouchableHighlight onPress={ () => this.searchPressed() } style={styles.searchButton}>
                     <Text>Fetch Recipes</Text>
                 </TouchableHighlight>
             </View>
             <ScrollView style ={styles.scrollSection}>
-                {this.recipes().map((recipe) => {
+                {!this.state.searching && this.recipes().map((recipe) => {
                     return <View key={recipe.id}>
                         <Image source={ { uri: recipe.thumbnail} } style ={styles.resultImage} />
                         <Text style={styles.resultText}>{recipe.title}</Text>
                     </View>
                 })}
+                {this.state.searching ? <Text>Searching...</Text>:null }
             </ScrollView>
         </View>
     }
@@ -50,8 +67,15 @@ const styles = StyleSheet.create({
         borderBottomColor: '#000',
         borderBottomWidth: 1,
         padding: 5,
+        flexDirection:'row',
     },
-    scrollSecction: {
+    searchInput:{
+        flex:0.7,
+    },
+    searchButton:{
+        flex:0.3,
+    },
+    scrollSection: {
         flex: 0.8
     },
     resultImage:{
