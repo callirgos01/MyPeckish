@@ -40,8 +40,9 @@ class Home extends Component {
                     onChangeText={ (ingredientsInput) => { this.setState({ingredientsInput})}}
                     value={this.state.ingredientsInput}
                 />
-                <TouchableHighlight onPress={ () => this.searchPressed() } style={styles.searchButton}>
-                    <Text>Fetch Recipes</Text>
+                <TouchableHighlight 
+                    renderToHardwareTextureAndroid={true} onPress={ () => this.searchPressed() } style={styles.searchButton}>
+                    <Text style={styles.buttonText} >Fetch Recipes</Text>
                 </TouchableHighlight>
             </View>
             <ScrollView style ={styles.scrollSection}>
@@ -60,13 +61,14 @@ class Home extends Component {
 const styles = StyleSheet.create({
     scene: {
         flex: 1,
-        marginTop:20,    
+        marginTop:20,
     },
     searchSection: {
-        height: 30,
+        flex: 0.05,
+        minHeight: 30,
         borderBottomColor: '#000',
         borderBottomWidth: 1,
-        padding: 5,
+        padding: 0,
         flexDirection:'row',
     },
     searchInput:{
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
         flex:0.3,
     },
     scrollSection: {
-        flex: 0.8
+        flex: 0.95
     },
     resultImage:{
         height: 150,
@@ -85,7 +87,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
         color: '#FFF',
         height:20,
-    }
+    },
+    buttonText: {
+        textAlign:'right',
+        textAlignVertical:'bottom',
+    },
 })
 
 function mapStateToPros(state)
