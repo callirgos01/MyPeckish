@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
+
+
 const{
     ScrollView,
     View,
@@ -20,10 +22,13 @@ class Home extends Component {
 
     searchPressed() {
         this.setState({searching: true});
-        this.props.fetchRecipes(this.state.ingredientsInput).then(() => {
-            this.setState({searching:false});
-        });
-        
+        put({type:'FETCH_RECIPES'});
+        /*
+        this.props.fetchRecipes(this.state.ingredientsInput).
+            then(() => {
+                this.setState({searching:false});
+            });
+        */
     }
 
 //may be an enhancer?
